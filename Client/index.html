@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EduForge AI — EQF 1-4 Aligned | Hackathon 2026</title>
+
+  <!-- Dışarıdan CSS Çağrılıyor -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark">EF</div>
+      <div>
+        <div class="logo-name">EduForge<span>.</span>AI</div>
+        <div class="logo-sub" data-i18n="logo_sub">EQF Uyumlu Proje Üretici</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <select id="langSelect" class="lang-select" onchange="switchLanguage(this.value)">
+        <option value="tr">🇹🇷 Türkçe</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="nl">🇳🇱 Nederlands</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow" data-i18n="hero_badge">✨ EQF Standartlarında Yapay Zeka</div>
+      <h1 data-i18n="hero_title">Sınırları <span class="accent">Aşan</span> Öğrenme.</h1>
+      <p class="hero-desc" data-i18n="hero_desc">Avrupa Yeterlilikler Çerçevesi (EQF 1-4) standartlarına göre; seçtiğin dersleri ve ilgi alanlarını birleştiren, algoritmik olarak doğrulanmış disiplinlerarası projeler tasarla.</p>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">4</div><div class="stat-label" data-i18n="stat_1">EQF Seviyesi</div></div>
+        <div class="stat"><div class="stat-num">3×</div><div class="stat-label" data-i18n="stat_2">Feedback Döngüsü</div></div>
+        <div class="stat"><div class="stat-num">100%</div><div class="stat-label" data-i18n="stat_3">Müfredat Uyumu</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-right-header" data-i18n="how_it_works">Sistem Nasıl Çalışır?</div>
+      <div class="feature-list">
+        <div class="feature-item"><div class="feature-num">1</div><div><div class="feature-title" data-i18n="f1_title">Dinamik Müfredat Entegrasyonu</div><div class="feature-desc" data-i18n="f1_desc">Yapay zeka sadece ders adını değil, dersin akademik konu başlıklarını da öğrenerek yazar.</div></div></div>
+        <div class="feature-item"><div class="feature-num">2</div><div><div class="feature-title" data-i18n="f2_title">EQF 1-4 Sınırlandırması</div><div class="feature-desc" data-i18n="f2_desc">Temel Eğitimden (1) Lise Mezuniyetine (4) kadar uluslararası geçerliliği olan kalite standartları.</div></div></div>
+        <div class="feature-item"><div class="feature-num">3</div><div><div class="feature-title" data-i18n="f3_title">JSON Mimarisi</div><div class="feature-desc" data-i18n="f3_desc">API uç noktası gibi çalışan, yazılımla işlenebilir katı çıktı formatı.</div></div></div>
+        <div class="feature-item"><div class="feature-num">4</div><div><div class="feature-title" data-i18n="f4_title">Algoritmik Doğrulama</div><div class="feature-desc" data-i18n="f4_desc">Her ders için en az 2 somut, ölçülebilir kazanım aranır.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-head fade-up">
+    <div class="section-title" data-i18n="config_title">Projeyi Yapılandır</div>
+    <div class="section-sub" data-i18n="config_sub">Üç adımda EQF uyumlu projeni oluştur</div>
+  </div>
+
+  <div class="form-card fade-up">
+    <div class="step-head">
+      <div class="step-badge">01</div>
+      <div>
+        <div class="step-title-text" data-i18n="step1_title">EQF Seviyesini Seç</div>
+      </div>
+    </div>
+    <div class="eqf-grid" id="eqfGrid"></div>
+  </div>
+
+  <div class="form-card fade-up">
+    <div class="step-head">
+      <div class="step-badge">02</div>
+      <div>
+        <div class="step-title-text">
+          <span data-i18n="step2_title">Dersleri Seç</span>
+          <span class="step-hint-text" id="subjCountHint">(1 - 5 ders)</span>
+        </div>
+      </div>
+    </div>
+    <div class="subjects-grid" id="subjGrid"></div>
+  </div>
+
+  <div class="form-card fade-up">
+    <div class="step-head">
+      <div class="step-badge">03</div>
+      <div>
+        <div class="step-title-text">
+          <span data-i18n="step3_title">İlgi Alanların</span>
+          <span class="step-hint-text" data-i18n="step3_hint">(isteğe bağlı)</span>
+        </div>
+      </div>
+    </div>
+    <textarea id="interests" class="interests-input" rows="3" data-i18n-ph="interests_ph" placeholder="Örn: oyun tasarımı..."></textarea>
+    <p class="hint" data-i18n="interests_sub">Ne kadar spesifik olursa proje o kadar sana özel olur.</p>
+  </div>
+
+  <div class="error-box" id="errorBox"></div>
+
+  <div class="gen-wrap fade-up">
+    <button class="gen-btn" id="genBtn" onclick="generate()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <span data-i18n="btn_generate">EQF Uyumlu Proje Üret</span>
+    </button>
+    <div class="loading-strip" id="loadingStrip">
+      <div class="spinner"></div>
+      <span class="strip-msg"><span data-i18n="loading_msg">Gemini analiz ediyor</span><span class="loading-dots"></span></span>
+    </div>
+  </div>
+
+  <div id="output"></div>
+
+</main>
+
+<footer>
+  EduForge AI &nbsp;·&nbsp; Rotterdam TC Hackathon 2026
+</footer>
+
+<!-- Önce veriler (Data), Sonra Ana Mantık (App) Yüklenir -->
+<script src="data.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
