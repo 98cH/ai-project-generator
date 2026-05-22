@@ -1,4 +1,4 @@
-const apiKey = "AIzaSyDs4mvVMvmtvP7y3AEZfs4yUrKeIu0_jDc"; // Kendi Google Gemini API Anahtarını Buraya Eklemelisin
+const apiKey = ""; // Kendi Google Gemini API Anahtarını Buraya Eklemelisin
 
 let currentLang = "tr";
 let selEqfIdx = -1;
